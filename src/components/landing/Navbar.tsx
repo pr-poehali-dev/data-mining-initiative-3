@@ -47,7 +47,7 @@ export default function Navbar() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <button onClick={() => scrollToSection("home")} className="text-2xl font-bold text-primary">
-            Dev<span className="text-destructive">Craft</span>
+            Kristina<span className="text-destructive">Design</span>
           </button>
 
           {/* Desktop Navigation */}
@@ -61,7 +61,7 @@ export default function Navbar() {
                 {link.name}
               </button>
             ))}
-            <Button>Резюме</Button>
+            <Button onClick={() => scrollToSection("contact")}>Заказать карточки</Button>
           </nav>
 
           {/* Mobile Navigation Toggle */}
@@ -85,7 +85,7 @@ export default function Navbar() {
                   {link.name}
                 </button>
               ))}
-              <Button className="w-full">Резюме</Button>
+              <Button className="w-full" onClick={() => scrollToSection("contact")}>Заказать карточки</Button>
             </nav>
           </div>
         </div>

@@ -7,11 +7,11 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
             <p className="text-lg font-bold text-primary">
-              Dev<span className="text-destructive">Craft</span>
+              Kristina<span className="text-destructive">Design</span>
             </p>
           </div>
           <div className="text-center md:text-right">
-            <p className="text-muted-foreground">&copy; {currentYear} DevCraft. Все права защищены.</p>
+            <p className="text-muted-foreground">&copy; {currentYear} Кристина Довгань. Все права защищены.</p>
           </div>
         </div>
       </div>

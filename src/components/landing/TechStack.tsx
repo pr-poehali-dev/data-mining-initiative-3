@@ -2,85 +2,81 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Code2, Layout, Server, Database, Wrench, Binary } from "lucide-react"
+import { Palette, LayoutTemplate, BarChart2, ShoppingBag, Image, Layers } from "lucide-react"
 
 export default function TechStack() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
   const technologies = {
-    languages: {
-      icon: <Code2 className="h-6 w-6" />,
-      title: "Языки программирования",
-      description: "Основные языки для системной и прикладной разработки",
+    design: {
+      icon: <Palette className="h-6 w-6" />,
+      title: "Дизайн и графика",
+      description: "Инструменты для создания визуала",
       skills: [
-        { name: "C++", level: 90 },
-        { name: "C", level: 85 },
-        { name: "Java", level: 88 },
-        { name: "Ruby", level: 82 },
-        { name: "Python", level: 85 },
-        { name: "TypeScript", level: 90 },
-        { name: "JavaScript", level: 90 },
+        { name: "Figma", level: 95 },
+        { name: "Adobe Photoshop", level: 92 },
+        { name: "Adobe Illustrator", level: 88 },
+        { name: "Canva Pro", level: 85 },
       ],
     },
-    concepts: {
-      icon: <Binary className="h-6 w-6" />,
-      title: "Инженерные концепции",
-      description: "Фундаментальные принципы разработки ПО",
+    infographics: {
+      icon: <BarChart2 className="h-6 w-6" />,
+      title: "Инфографика",
+      description: "Визуализация преимуществ товара",
       skills: [
-        { name: "Структуры данных", level: 95 },
-        { name: "Алгоритмы", level: 90 },
-        { name: "ООП", level: 95 },
-        { name: "Паттерны", level: 85 },
-        { name: "Системный дизайн", level: 80 },
-        { name: "Многопоточность", level: 85 },
+        { name: "Размерные схемы", level: 95 },
+        { name: "Сравнительные таблицы", level: 90 },
+        { name: "Иконографика", level: 92 },
+        { name: "Упаковочные составы", level: 88 },
+        { name: "Инструкции", level: 85 },
       ],
     },
-    frontend: {
-      icon: <Layout className="h-6 w-6" />,
-      title: "Frontend-разработка",
-      description: "Современные технологии веб-разработки",
+    marketplaces: {
+      icon: <ShoppingBag className="h-6 w-6" />,
+      title: "Маркетплейсы",
+      description: "Платформы, с которыми работаю",
       skills: [
-        { name: "React", level: 90 },
-        { name: "Next.js", level: 85 },
-        { name: "HTML/CSS", level: 95 },
-        { name: "Tailwind CSS", level: 95 },
-        { name: "Redux", level: 85 },
-        { name: "WebGL", level: 75 },
+        { name: "Wildberries", level: 98 },
+        { name: "Ozon", level: 95 },
+        { name: "Яндекс Маркет", level: 90 },
+        { name: "AliExpress", level: 80 },
+        { name: "СберМегаМаркет", level: 78 },
       ],
     },
-    backend: {
-      icon: <Server className="h-6 w-6" />,
-      title: "Backend-разработка",
-      description: "Серверные фреймворки и технологии",
+    cards: {
+      icon: <LayoutTemplate className="h-6 w-6" />,
+      title: "Типы карточек",
+      description: "Форматы работ",
       skills: [
-        { name: "Node.js", level: 85 },
-        { name: "Express", level: 80 },
-        { name: "Spring Boot", level: 85 },
-        { name: "Ruby on Rails", level: 80 },
+        { name: "Главное фото", level: 95 },
+        { name: "Галерея продукта", level: 93 },
+        { name: "Rich-контент", level: 88 },
+        { name: "A+ контент", level: 85 },
+        { name: "Видеообложки", level: 80 },
       ],
     },
-    database: {
-      icon: <Database className="h-6 w-6" />,
-      title: "Базы данных",
-      description: "Управление и оптимизация БД",
+    photo: {
+      icon: <Image className="h-6 w-6" />,
+      title: "Работа с фото",
+      description: "Обработка и ретушь предметки",
       skills: [
-        { name: "MongoDB", level: 85 },
-        { name: "PostgreSQL", level: 80 },
-        { name: "MySQL", level: 75 },
-        { name: "Redis", level: 70 },
+        { name: "Предметная ретушь", level: 92 },
+        { name: "Удаление фона", level: 98 },
+        { name: "Цветокоррекция", level: 90 },
+        { name: "Композитинг", level: 85 },
       ],
     },
-    tools: {
-      icon: <Wrench className="h-6 w-6" />,
-      title: "Инструменты",
-      description: "Инструменты и среды разработки",
+    niches: {
+      icon: <Layers className="h-6 w-6" />,
+      title: "Ниши",
+      description: "Категории товаров в портфолио",
       skills: [
-        { name: "Git", level: 90 },
-        { name: "Docker", level: 80 },
-        { name: "AWS", level: 75 },
-        { name: "Linux/Unix", level: 85 },
-        { name: "CMake", level: 80 },
-        { name: "Visual Studio", level: 85 },
+        { name: "Одежда и мода", level: 95 },
+        { name: "Косметика и уход", level: 92 },
+        { name: "Дом и интерьер", level: 90 },
+        { name: "Электроника", level: 85 },
+        { name: "Детские товары", level: 88 },
+        { name: "Спорт и туризм", level: 82 },
       ],
     },
   }
@@ -109,7 +105,7 @@ export default function TechStack() {
           <Badge variant="outline" className="mb-4">
             Навыки
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Техническая экспертиза</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Моя экспертиза</h2>
           <div className="w-20 h-1 bg-primary mx-auto"></div>
         </motion.div>
 
@@ -200,9 +196,8 @@ export default function TechStack() {
           className="mt-12 text-center text-muted-foreground"
         >
           <p className="max-w-2xl mx-auto">
-            Обширный опыт как в низкоуровневом системном программировании, так и в современной
-            веб-разработке позволяет применять комплексное понимание принципов инженерии ПО
-            в каждом проекте.
+            Глубокое понимание алгоритмов маркетплейсов и психологии покупателя позволяет создавать
+            инфографику, которая не просто красиво выглядит, но реально увеличивает продажи.
           </p>
         </motion.div>
       </div>

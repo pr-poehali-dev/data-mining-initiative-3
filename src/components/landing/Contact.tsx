@@ -53,8 +53,8 @@ export default function Contact() {
     {
       icon: <Mail className="h-6 w-6 text-primary" />,
       title: "Email",
-      value: "hello@devcraft.example",
-      link: "mailto:hello@devcraft.example",
+      value: "kristina@dovgan.design",
+      link: "mailto:kristina@dovgan.design",
     },
     {
       icon: <Phone className="h-6 w-6 text-primary" />,
@@ -65,7 +65,7 @@ export default function Contact() {
     {
       icon: <MapPin className="h-6 w-6 text-primary" />,
       title: "Локация",
-      value: "Москва, Россия",
+      value: "Работаю удалённо, по всей России",
       link: null,
     },
   ]
@@ -84,7 +84,7 @@ export default function Contact() {
           <Badge variant="outline" className="mb-4">
             Контакты
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Связаться со мной</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Обсудить ваш проект</h2>
           <div className="w-20 h-1 bg-primary mx-auto"></div>
         </motion.div>
 
@@ -130,7 +130,7 @@ export default function Contact() {
                     <Input
                       id="subject"
                       name="subject"
-                      placeholder="Запрос по проекту"
+                      placeholder="Карточки для Wildberries, 20 артикулов"
                       value={formData.subject}
                       onChange={handleChange}
                       required
@@ -141,7 +141,7 @@ export default function Contact() {
                     <Textarea
                       id="message"
                       name="message"
-                      placeholder="Хотел бы обсудить проект..."
+                      placeholder="Расскажите о вашем товаре, маркетплейсе и задаче..."
                       rows={6}
                       value={formData.message}
                       onChange={handleChange}
@@ -186,7 +186,7 @@ export default function Contact() {
 
               <Card className="mt-8">
                 <CardContent className="p-6">
-                  <h4 className="text-lg font-semibold mb-4">Подписаться</h4>
+                  <h4 className="text-lg font-semibold mb-4">Мои соцсети</h4>
                   <div className="flex gap-4">
                     <Button variant="outline" size="icon" className="rounded-full" asChild>
                       <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
