@@ -1,142 +1,58 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { ExternalLink, ChevronDown } from "lucide-react"
+import { X, ChevronLeft, ChevronRight } from "lucide-react"
 
-interface Project {
-  id: number
-  title: string
-  shortDescription: string
-  description: string
-  image: string
-  tags: string[]
-  features: string[]
-  demoLink: string
-  fullDescription: string
-}
+const images = [
+  {
+    id: 1,
+    url: "https://cdn.poehali.dev/projects/61c39d62-8dff-4717-9b07-abac450ff076/bucket/92609513-fbea-4f25-8889-8ee48bbf32c1.png",
+    title: "Яндекс.Станция Мини",
+    tag: "Электроника",
+  },
+  {
+    id: 2,
+    url: "https://cdn.poehali.dev/projects/61c39d62-8dff-4717-9b07-abac450ff076/bucket/4931ee17-e8e0-4e41-90d8-80c36bd5cd0d.png",
+    title: "Яндекс.Станция — автономность",
+    tag: "Электроника",
+  },
+  {
+    id: 3,
+    url: "https://cdn.poehali.dev/projects/61c39d62-8dff-4717-9b07-abac450ff076/bucket/f66fb6b6-bf80-4e9f-8994-7da62115cf90.png",
+    title: "Звуковая зубная щётка",
+    tag: "Косметика и уход",
+  },
+  {
+    id: 4,
+    url: "https://cdn.poehali.dev/projects/61c39d62-8dff-4717-9b07-abac450ff076/bucket/71a15dec-3a65-4d87-8eb9-c9d26222c22e.png",
+    title: "Зубная щётка — характеристики",
+    tag: "Косметика и уход",
+  },
+  {
+    id: 5,
+    url: "https://cdn.poehali.dev/projects/61c39d62-8dff-4717-9b07-abac450ff076/bucket/fb26e062-f59c-427c-80b8-8604331d7637.png",
+    title: "Зубная щётка — режимы",
+    tag: "Косметика и уход",
+  },
+]
 
 export default function Projects() {
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
-  const [expandedProject, setExpandedProject] = useState<number | null>(null)
+  const [lightbox, setLightbox] = useState<number | null>(null)
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   }
 
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "Карточки для бренда одежды",
-      shortDescription: "Полный комплект из 8 карточек для женской одежды на Wildberries.",
-      description: "Полный комплект из 8 карточек для женской одежды на Wildberries с инфографикой состава и размерной сетки.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["Wildberries", "Одежда", "Инфографика", "Размерная сетка"],
-      features: [
-        "Главное фото с цепляющим оффером",
-        "Инфографика состава ткани",
-        "Размерная таблица с замерами",
-        "Карточка ухода за изделием",
-        "Слайд с преимуществами бренда",
-      ],
-      demoLink: "#",
-      fullDescription:
-        "Разработала полный комплект карточек для женской одежды. Основной акцент — на качестве ткани и точной размерной сетке, которые закрывают главные возражения покупателей в категории одежды. После замены карточек конверсия клиента выросла на 34%.",
-    },
-    {
-      id: 2,
-      title: "Инфографика косметического бренда",
-      shortDescription: "Rich-контент для линейки уходовой косметики на Ozon.",
-      description: "Rich-контент и A+ карточки для линейки уходовой косметики на Ozon.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["Ozon", "Косметика", "Rich-контент", "A+"],
-      features: [
-        "Визуализация состава ингредиентов",
-        "Схема применения продукта",
-        "Сравнение с аналогами",
-        "Результаты «до/после»",
-        "Сертификаты и награды",
-      ],
-      demoLink: "#",
-      fullDescription:
-        "Создала rich-контент для уходовой линейки: наглядно показала состав, схему применения и результаты. Визуальное сравнение с конкурентами помогло выделить ключевые преимущества. Клиент отметил рост добавлений в корзину на 28% после обновления карточек.",
-    },
-    {
-      id: 3,
-      title: "Электроника — умный дом",
-      shortDescription: "Карточки для товаров категории «умный дом» на Яндекс Маркете.",
-      description: "Карточки с технической инфографикой для устройств умного дома на Яндекс Маркете.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["Яндекс Маркет", "Электроника", "Техническая инфографика"],
-      features: [
-        "Схема подключения устройства",
-        "Технические характеристики в иконках",
-        "Совместимость с платформами",
-        "Инструкция по установке",
-        "Гарантийные условия",
-      ],
-      demoLink: "#",
-      fullDescription:
-        "Разработала серию карточек для умных розеток и датчиков. Сложные технические характеристики перевела в понятные иконки и схемы. Особое внимание уделила инструкции по установке — главному страху покупателей в этой категории.",
-    },
-    {
-      id: 4,
-      title: "Детские товары",
-      shortDescription: "Яркие карточки для детских игрушек с упором на безопасность.",
-      description: "Яркие продающие карточки для детских игрушек с акцентом на безопасность и развитие.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["Wildberries", "Детские товары", "Безопасность"],
-      features: [
-        "Сертификаты безопасности",
-        "Возрастные рекомендации",
-        "Развивающий потенциал",
-        "Материалы и состав",
-        "Комплектация с фото",
-      ],
-      demoLink: "#",
-      fullDescription:
-        "Создала карточки для линейки деревянных игрушек. Главный упор — на экологичность материалов и наличие сертификатов безопасности, что критически важно для мам. Карточки сочетают яркость, привлекающую детей, с информацией, убеждающей родителей.",
-    },
-    {
-      id: 5,
-      title: "Товары для спорта и туризма",
-      shortDescription: "Карточки для туристического снаряжения с характеристиками в инфографике.",
-      description: "Карточки для туристического снаряжения — палатки, рюкзаки, спальники.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["Ozon", "Спорт", "Туризм", "Характеристики"],
-      features: [
-        "Схема сборки/раскладки",
-        "Характеристики в иконках",
-        "Сравнение с аналогами",
-        "Сезонность применения",
-        "Сцены использования",
-      ],
-      demoLink: "#",
-      fullDescription:
-        "Разработала карточки для туристического снаряжения: наглядно показала размеры в сложенном виде, вес, температурный диапазон. Схемы сборки палатки убрали сомнения покупателей в сложности установки.",
-    },
-    {
-      id: 6,
-      title: "Товары для дома и интерьера",
-      shortDescription: "Стильные карточки для декора и предметов интерьера.",
-      description: "Стильные карточки для декора, текстиля и предметов интерьера.",
-      image: "/placeholder.svg?height=400&width=600",
-      tags: ["Wildberries", "Дом", "Интерьер", "Декор"],
-      features: [
-        "Визуализация в интерьере",
-        "Размеры и габариты",
-        "Варианты цветов",
-        "Материалы и уход",
-        "Сочетаемость со стилями",
-      ],
-      demoLink: "#",
-      fullDescription:
-        "Создала карточки для постельного белья и декоративных подушек. Визуализация в реальных интерьерах помогает покупателю представить товар у себя дома. Акцент на качество материалов и лёгкость ухода — ключевые факторы выбора в этой категории.",
-    },
-  ]
+  const prev = () => {
+    if (lightbox === null) return
+    setLightbox(lightbox === 0 ? images.length - 1 : lightbox - 1)
+  }
+
+  const next = () => {
+    if (lightbox === null) return
+    setLightbox(lightbox === images.length - 1 ? 0 : lightbox + 1)
+  }
 
   return (
     <section id="projects" className="py-20 bg-muted/30">
@@ -152,113 +68,87 @@ export default function Projects() {
           <Badge variant="outline" className="mb-4">
             Портфолио
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Избранные работы</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Мои работы</h2>
           <div className="w-20 h-1 bg-primary mx-auto"></div>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
+        <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+          {images.map((img, index) => (
             <motion.div
-              key={project.id}
+              key={img.id}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.4, delay: index * 0.08 }}
               variants={fadeIn}
+              className="break-inside-avoid cursor-pointer group relative overflow-hidden rounded-xl"
+              onClick={() => setLightbox(index)}
             >
-              <Card
-                className={`group h-full cursor-pointer transition-all duration-300 hover:shadow-lg ${
-                  expandedProject === project.id ? "ring-2 ring-primary" : ""
-                }`}
-                onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
-              >
-                <CardContent className="p-0">
-                  <div className="relative overflow-hidden">
-                    <img
-                      src={project.image || "/placeholder.svg"}
-                      alt={project.title}
-                      className="w-full aspect-video object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-background/20 p-6 flex flex-col justify-end">
-                      <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                      <p className="text-muted-foreground text-sm">{project.shortDescription}</p>
-                    </div>
-                  </div>
-
-                  <div className="p-6">
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag, tagIndex) => (
-                        <Badge key={tagIndex} variant="secondary">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-
-                    <AnimatePresence>
-                      {expandedProject === project.id && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                        >
-                          <p className="text-muted-foreground text-sm mb-4">{project.fullDescription}</p>
-                          <ul className="space-y-2 mb-4">
-                            {project.features.map((feature, featureIndex) => (
-                              <li key={featureIndex} className="flex items-center gap-2 text-sm">
-                                <div className="h-1.5 w-1.5 rounded-full bg-primary" />
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                          <div className="flex gap-3">
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="gap-2"
-                              onClick={(e) => {
-                                e.stopPropagation()
-                                setSelectedProject(project)
-                              }}
-                            >
-                              <ExternalLink className="h-4 w-4" />
-                              Подробнее
-                            </Button>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-
-                    <div className="flex items-center gap-1 text-muted-foreground text-sm mt-2">
-                      <ChevronDown
-                        className={`h-4 w-4 transition-transform ${expandedProject === project.id ? "rotate-180" : ""}`}
-                      />
-                      {expandedProject === project.id ? "Свернуть" : "Подробнее"}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+              <img
+                src={img.url}
+                alt={img.title}
+                className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105 rounded-xl"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 rounded-xl flex items-end p-4 opacity-0 group-hover:opacity-100">
+                <div>
+                  <p className="text-white font-semibold text-sm">{img.title}</p>
+                  <Badge variant="secondary" className="mt-1 text-xs">{img.tag}</Badge>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
-
-        <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-          <DialogContent className="max-w-2xl">
-            <DialogHeader>
-              <DialogTitle>{selectedProject?.title}</DialogTitle>
-              <DialogDescription>{selectedProject?.description}</DialogDescription>
-            </DialogHeader>
-            <div className="mt-4">
-              <img
-                src={selectedProject?.image || "/placeholder.svg"}
-                alt={selectedProject?.title}
-                className="w-full rounded-lg aspect-video object-cover mb-4"
-              />
-              <p className="text-muted-foreground">{selectedProject?.fullDescription}</p>
-            </div>
-          </DialogContent>
-        </Dialog>
       </div>
+
+      <AnimatePresence>
+        {lightbox !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+            onClick={() => setLightbox(null)}
+          >
+            <button
+              className="absolute top-4 right-4 text-white hover:text-primary transition-colors"
+              onClick={() => setLightbox(null)}
+            >
+              <X className="h-8 w-8" />
+            </button>
+
+            <button
+              className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-primary transition-colors"
+              onClick={(e) => { e.stopPropagation(); prev() }}
+            >
+              <ChevronLeft className="h-10 w-10" />
+            </button>
+
+            <motion.img
+              key={lightbox}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              src={images[lightbox].url}
+              alt={images[lightbox].title}
+              className="max-h-[90vh] max-w-[90vw] object-contain rounded-xl"
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            <button
+              className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-primary transition-colors"
+              onClick={(e) => { e.stopPropagation(); next() }}
+            >
+              <ChevronRight className="h-10 w-10" />
+            </button>
+
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center">
+              <p className="text-white font-medium">{images[lightbox].title}</p>
+              <p className="text-white/60 text-sm mt-1">{lightbox + 1} / {images.length}</p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
